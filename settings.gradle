@@ -1,0 +1,4 @@
+rootProject.name = "ListActivity"
+include ':app'
+include ':ListActivity'
+include ':swipetoloadlayout'
