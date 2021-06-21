@@ -13,28 +13,28 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:tag="com.wpf.listactivity.NoRefreshTestSingleListActivity"
+        android:tag="com.wpf.listactivity.NoRefreshSingleListTestActivity"
         android:text="跳转到不带刷新列表"
         />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:tag="com.wpf.listactivity.RefreshTestSingleListActivity"
+        android:tag="com.wpf.listactivity.RefreshSingleListTestActivity"
         android:text="跳转到带刷新列表"
         />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:tag="com.wpf.listactivity.NoRefreshTestMultiListActivity"
+        android:tag="com.wpf.listactivity.NoRefreshMultiListTestActivity"
         android:text="跳转到不带刷新多样式列表"
         />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:tag="com.wpf.listactivity.RefreshTestMultiListActivity"
+        android:tag="com.wpf.listactivity.RefreshMultiListTestActivity"
         android:text="跳转到带刷新多样式列表"
         />
 
