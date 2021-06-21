@@ -16,10 +16,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".NoRefreshTestMultiListActivity"/>
-        <activity android:name=".NoRefreshTestSingleListActivity"/>
-        <activity android:name=".RefreshTestSingleListActivity"/>
-        <activity android:name=".RefreshTestMultiListActivity"/>
+        <activity android:name=".NoRefreshMultiListTestActivity"/>
+        <activity android:name=".NoRefreshSingleListTestActivity"/>
+        <activity android:name=".RefreshSingleListTestActivity"/>
+        <activity android:name=".RefreshMultiListTestActivity"/>
+        <activity android:name=".LoadFragmentTestActivity"/>
     </application>
 
 </manifest>

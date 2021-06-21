@@ -5,7 +5,8 @@ import com.base.listactivity.BaseNoRefreshSingleListActivity
 import com.base.listactivity.adapter.BaseListAdapter
 import com.wpf.listactivity.adapter.TestAdapterSingle
 
-class NoRefreshTestSingleListActivity : BaseNoRefreshSingleListActivity<String>() {
+class NoRefreshSingleListTestActivity : BaseNoRefreshSingleListActivity<String>() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         onRefresh()
