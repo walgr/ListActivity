@@ -24,7 +24,7 @@ import com.chad.library.adapter.base.listener.OnItemLongClickListener
 /**
  * Created by 王朋飞 on 2021/6/21.
  * 列表基类View
- * 支持：单类型、多类型、无刷新、有刷新
+ * 支持：单类型、多类型、无刷新、有刷新、默认单排、多排
  */
 open class BaseListView<T>
 @JvmOverloads constructor(
@@ -34,6 +34,7 @@ open class BaseListView<T>
     private val includeLoadMore: Boolean = true,
     private var headerView: SwipeRefreshHeaderLayout? = null,
     private var loadMoreView: SwipeRefreshHeaderLayout? = null,
+    private var spanCount: Int = 0,
     var preInitAdapterListener: PreInitAdapterListener<T>? = null,
     var sendRefreshListener: SendRefreshListener? = null,
     var onRefreshListener: OnRefreshListener? = null,
@@ -88,6 +89,7 @@ open class BaseListView<T>
             mRecyclerView,
             mBaseAdapter = preInitAdapterListener?.preInitAdapter(),
             mBaseMultiAdapter = multiAdapter,
+            spanCount = spanCount,
             mSwipeToLoadLayout = mSwipeToLoadLayout,
             mEmptyLayout = mEmptyLayout,
             onItemClickListener = onItemClickListener,

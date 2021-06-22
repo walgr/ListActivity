@@ -95,155 +95,155 @@ abstract class BaseListAdapter<T>(
         data.forEach {
             this.data.add(it as T)
         }
-}
-
-open fun appendToList(list: MutableList<T>?, position: Int) {
-    if (list == null || list.size == 0) {
-        return
     }
-    data.addAll(position, list)
-}
 
-open fun appendToList(t: T, position: Int) {
-    data.add(position, t)
-}
+    open fun appendToList(list: MutableList<T>?, position: Int) {
+        if (list == null || list.size == 0) {
+            return
+        }
+        data.addAll(position, list)
+    }
 
-open fun addToList(t: T) {
-    data.add(t)
-}
+    open fun appendToList(t: T, position: Int) {
+        data.add(position, t)
+    }
 
-open fun updateData(t: T, position: Int) {
-    data[position] = t
-}
+    open fun addToList(t: T) {
+        data.add(t)
+    }
 
-open fun resumeRemoveItemNotify(position: Int) {
-    sendRefreshEvent()
-    data.removeAt(position)
-    notifyDataSetChanged()
-}
+    open fun updateData(t: T, position: Int) {
+        data[position] = t
+    }
 
-open fun removeItem(position: Int) {
-    data.removeAt(position)
-    notifyItemChanged(position)
-}
-
-open fun removeItemAllNotify(position: Int) {
-    data.removeAt(position)
-    notifyDataSetChanged()
-}
-
-open fun removeItemNoIty(position: Int) {
-    data.removeAt(position)
-}
-
-open fun removeItems(position: Int, count: Int) {
-    var countTmp = count
-    while (count > 0) {
+    open fun resumeRemoveItemNotify(position: Int) {
+        sendRefreshEvent()
         data.removeAt(position)
-        countTmp--
+        notifyDataSetChanged()
     }
-}
 
-open fun removeItemNoNotify(position: Int) {
-    data.removeAt(position)
-}
+    open fun removeItem(position: Int) {
+        data.removeAt(position)
+        notifyItemChanged(position)
+    }
 
-override fun isEmpty(): Boolean {
-    return data.size == 0
-}
+    open fun removeItemAllNotify(position: Int) {
+        data.removeAt(position)
+        notifyDataSetChanged()
+    }
 
-override fun getItem(position: Int): T {
-    return data[position]
-}
+    open fun removeItemNoIty(position: Int) {
+        data.removeAt(position)
+    }
 
-open fun getSelectList(): MutableList<T>? {
-    selectedDataList = mutableListOf()
-    for (i in data.indices) {
-        val t: T = data[i]
-        if ((t as BaseSelectEntity).select) {
-            selectedDataList?.add(data[i])
+    open fun removeItems(position: Int, count: Int) {
+        var countTmp = count
+        while (count > 0) {
+            data.removeAt(position)
+            countTmp--
         }
     }
-    return selectedDataList
-}
 
-open fun getSelectListPosition(): MutableList<Int>? {
-    val selectPosition: MutableList<Int> = ArrayList()
-    selectedDataList = mutableListOf()
-    for (i in data.indices) {
-        val t: T = data[i]
-        if ((t as BaseSelectEntity).select) {
-            selectedDataList?.add(data[i])
-            selectPosition.add(i)
+    open fun removeItemNoNotify(position: Int) {
+        data.removeAt(position)
+    }
+
+    override fun isEmpty(): Boolean {
+        return data.size == 0
+    }
+
+    override fun getItem(position: Int): T {
+        return data[position]
+    }
+
+    open fun getSelectList(): MutableList<T>? {
+        selectedDataList = mutableListOf()
+        for (i in data.indices) {
+            val t: T = data[i]
+            if ((t as BaseSelectEntity).select) {
+                selectedDataList?.add(data[i])
+            }
         }
+        return selectedDataList
     }
-    return selectPosition
-}
 
-open fun showOrHideSelect(isShow: Boolean) {
-    for (i in data.indices) {
-        val t: T = data[i]
-        (t as BaseSelectEntity).isShowSelect = isShow
+    open fun getSelectListPosition(): MutableList<Int>? {
+        val selectPosition: MutableList<Int> = ArrayList()
+        selectedDataList = mutableListOf()
+        for (i in data.indices) {
+            val t: T = data[i]
+            if ((t as BaseSelectEntity).select) {
+                selectedDataList?.add(data[i])
+                selectPosition.add(i)
+            }
+        }
+        return selectPosition
     }
-    notifyDataSetChanged()
-}
 
-//得到单选时被选中的对象
-open fun getSelectedItem(): T? {
-    return if (selectData == null) {
-        null
-    } else selectData
-}
-
-//设置单选时被选中的对象
-open fun setSelectedItem(position: Int) {
-    if (selectData != null) {
-        (selectData as BaseSelectEntity).select = false
+    open fun showOrHideSelect(isShow: Boolean) {
+        for (i in data.indices) {
+            val t: T = data[i]
+            (t as BaseSelectEntity).isShowSelect = isShow
+        }
+        notifyDataSetChanged()
     }
-    selectData = data[position]
-    (selectData as BaseSelectEntity).select = true
-    notifyDataSetChanged()
-}
 
-override fun clear() {
-    data.clear()
-}
+    //得到单选时被选中的对象
+    open fun getSelectedItem(): T? {
+        return if (selectData == null) {
+            null
+        } else selectData
+    }
+
+    //设置单选时被选中的对象
+    open fun setSelectedItem(position: Int) {
+        if (selectData != null) {
+            (selectData as BaseSelectEntity).select = false
+        }
+        selectData = data[position]
+        (selectData as BaseSelectEntity).select = true
+        notifyDataSetChanged()
+    }
+
+    override fun clear() {
+        data.clear()
+    }
 
 // 带动画效果的
-/**
- * 从position开始删除，删除
- *
- * @param position
- * @param itemCount 删除的数目
- */
-open fun removeAll(position: Int, itemCount: Int) {
-    for (i in 0 until itemCount) {
-        data.removeAt(position)
+    /**
+     * 从position开始删除，删除
+     *
+     * @param position
+     * @param itemCount 删除的数目
+     */
+    open fun removeAll(position: Int, itemCount: Int) {
+        for (i in 0 until itemCount) {
+            data.removeAt(position)
+        }
+        notifyItemRangeRemoved(position, itemCount)
     }
-    notifyItemRangeRemoved(position, itemCount)
-}
 
-open fun add(t: T, position: Int) {
-    data.add(position, t)
-    notifyItemInserted(position)
-}
-
-open fun addAll(list: MutableList<T>?, position: Int) {
-    list?.let {
-        data.addAll(position, list)
-        notifyItemRangeInserted(position, list.size)
+    open fun add(t: T, position: Int) {
+        data.add(position, t)
+        notifyItemInserted(position)
     }
-}
 
-// 销毁adapter
-open fun destroy() {}
+    open fun addAll(list: MutableList<T>?, position: Int) {
+        list?.let {
+            data.addAll(position, list)
+            notifyItemRangeInserted(position, list.size)
+        }
+    }
 
-/**
- * 自己发送刷新消息
- */
-abstract fun sendRefreshEvent()
+    // 销毁adapter
+    open fun destroy() {}
 
-override fun getAdapter(): BaseQuickAdapter<T, BaseViewHolder> {
-    return this
-}
+    /**
+     * 自己发送刷新消息
+     */
+    abstract fun sendRefreshEvent()
+
+    override fun getAdapter(): BaseQuickAdapter<T, BaseViewHolder> {
+        return this
+    }
 }

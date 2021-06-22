@@ -29,7 +29,8 @@ abstract class BaseListActivity<T>
     private val includeHeader: Boolean = true,
     private val includeLoadMore: Boolean = true,
     private var headerView: SwipeRefreshHeaderLayout? = null,
-    private var loadMoreView: SwipeRefreshHeaderLayout? = null
+    private var loadMoreView: SwipeRefreshHeaderLayout? = null,
+    private var spanCount: Int = 0
 ) : AppCompatActivity(),
     PreInitAdapterListener<T>,
     RefreshListLayout<T> {
@@ -70,6 +71,7 @@ abstract class BaseListActivity<T>
             includeLoadMore = includeLoadMore,
             headerView = headerView,
             loadMoreView = loadMoreView,
+            spanCount = spanCount,
             preInitAdapterListener = this,
             sendRefreshListener = this,
             onRefreshListener = this,

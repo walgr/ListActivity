@@ -15,7 +15,7 @@ import com.wpf.listactivity.entity.MultiEntity
  * Created by 王朋飞 on 2021/6/21.
  *
  */
-class RefreshMultiListTestFragment: BaseListFragment<BaseMixEntity>() {
+class RefreshMultiListTestFragment: BaseListFragment<BaseMixEntity>(spanCount = 2) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

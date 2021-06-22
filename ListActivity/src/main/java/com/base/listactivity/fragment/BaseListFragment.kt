@@ -27,7 +27,8 @@ abstract class BaseListFragment<T>
     private val includeHeader: Boolean = true,
     private val includeLoadMore: Boolean = true,
     private var headerView: SwipeRefreshHeaderLayout? = null,
-    private var loadMoreView: SwipeRefreshHeaderLayout? = null
+    private var loadMoreView: SwipeRefreshHeaderLayout? = null,
+    private var spanCount: Int = 0
 ) : BaseFragment<T>(),
     PreInitAdapterListener<T>,
     BaseList<T> {
@@ -78,6 +79,7 @@ abstract class BaseListFragment<T>
             this.context!!,
             headerView = headerView,
             loadMoreView = loadMoreView,
+            spanCount = spanCount,
             preInitAdapterListener = this,
             sendRefreshListener = this,
             onRefreshListener = this,
