@@ -5,19 +5,6 @@ import java.lang.reflect.Field
 import java.lang.reflect.InvocationTargetException
 
 object AnimationDrawableUtil {
-    fun setCurFrameIndex(animationDrawable: AnimationDrawable?, index: Int) {
-        val clazz: Class<*> = AnimationDrawable::class.java
-        var declaredField: Field? = null
-        try {
-            declaredField = clazz.getDeclaredField("mCurFrame")
-            declaredField.isAccessible = true
-            declaredField[animationDrawable] = index
-        } catch (e: NoSuchFieldException) {
-            e.printStackTrace()
-        } catch (e: IllegalAccessException) {
-            e.printStackTrace()
-        }
-    }
 
     fun startAtIndex(animationDrawable: AnimationDrawable?, index: Int) {
         val clazz: Class<*> = AnimationDrawable::class.java

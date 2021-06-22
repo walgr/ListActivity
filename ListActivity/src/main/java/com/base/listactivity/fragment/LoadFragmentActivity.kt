@@ -11,10 +11,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.aspsine.swipetoloadlayout.SwipeToLoadLayout
 import com.base.listactivity.R
 import com.base.listactivity.adapter.BaseListAdapter
-import com.base.listactivity.listener.BaseAdapter
-import com.base.listactivity.listener.NoRefreshListLayout
-import com.base.listactivity.listener.PreInitAdapterListener
-import com.base.listactivity.listener.Transit
+import com.base.listactivity.adapter.BaseMultiItemAdapter
+import com.base.listactivity.entity.BaseMixEntity
+import com.base.listactivity.listener.*
 import com.base.listactivity.widget.EmptyLayout
 
 /**
@@ -24,7 +23,7 @@ import com.base.listactivity.widget.EmptyLayout
 abstract class LoadFragmentActivity<T> :
     AppCompatActivity(),
     PreInitAdapterListener<T>,
-    NoRefreshListLayout<T>,
+    RefreshListLayout<T>,
     Transit<T> {
 
     override var mContext: Context? = this.baseContext
@@ -32,7 +31,7 @@ abstract class LoadFragmentActivity<T> :
     override var mSwipeToLoadLayout: SwipeToLoadLayout? = null
     override var mRecyclerView: RecyclerView? = null
     override var mLayoutManager: RecyclerView.LayoutManager? = null
-    override var mBaseAdapter: BaseAdapter<T>? = null
+    override var mAdapter: BaseAdapter<*>? = null
     override var REFRESH_REQUEST_CODE: Int = 0
     override var netErrorMsg: String = ""
     override var serverErrorMsg: String = ""
@@ -50,24 +49,6 @@ abstract class LoadFragmentActivity<T> :
     }
 
     abstract fun getLoadFragment(): BaseFragment<T>?
-
-    /**
-     * 添加 Fragment
-     *
-     * @param containerViewId
-     * @param fragment
-     */
-    fun addFragment(containerViewId: Int, fragment: Fragment, tag: String? = null) {
-        val fragmentTransaction: FragmentTransaction = supportFragmentManager.beginTransaction()
-        if (TextUtils.isEmpty(tag)) {
-            fragmentTransaction.add(containerViewId, fragment)
-        } else {
-            // 设置tag，不然下面 findFragmentByTag(tag)找不到
-            fragmentTransaction.add(containerViewId, fragment, tag)
-            fragmentTransaction.addToBackStack(tag)
-        }
-        fragmentTransaction.commit()
-    }
 
     override fun loadData(
         data: MutableList<T>?,
@@ -87,6 +68,10 @@ abstract class LoadFragmentActivity<T> :
         return null
     }
 
+    override fun preInitMultiAdapter(): Array<out BaseMultiItemAdapter<out BaseMixEntity>>? {
+        return null
+    }
+
     override fun onRefresh() {
         fragment?.onRefresh()
     }
@@ -98,5 +83,21 @@ abstract class LoadFragmentActivity<T> :
     override fun sendRefreshEvent() {
         //需要实现发送消息
         fragment?.sendRefreshEvent()
+    }
+
+    /**
+     * 添加 Fragment
+     *
+     */
+    private fun addFragment(containerViewId: Int, fragment: Fragment, tag: String? = null) {
+        val fragmentTransaction: FragmentTransaction = supportFragmentManager.beginTransaction()
+        if (TextUtils.isEmpty(tag)) {
+            fragmentTransaction.add(containerViewId, fragment)
+        } else {
+            // 设置tag，不然下面 findFragmentByTag(tag)找不到
+            fragmentTransaction.add(containerViewId, fragment, tag)
+            fragmentTransaction.addToBackStack(tag)
+        }
+        fragmentTransaction.commit()
     }
 }

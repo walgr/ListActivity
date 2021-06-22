@@ -13,10 +13,9 @@ import com.chad.library.adapter.base.viewholder.BaseViewHolder
  *
  */
 open class BaseMultiListAdapter(
-    private val layoutAdapterList: Array<BaseMultiItemAdapter<out BaseMixEntity>>,
+    private val layoutAdapterList: Array<out BaseMultiItemAdapter<out BaseMixEntity>>,
     dataList: MutableList<BaseMixEntity>?
-) :
-    BaseMultiItemQuickAdapter<BaseMixEntity, BaseViewHolder>(dataList), BaseAdapter<BaseMixEntity> {
+) : BaseMultiItemQuickAdapter<BaseMixEntity, BaseViewHolder>(dataList), BaseAdapter<BaseMixEntity> {
 
     init {
         initLayoutList()
@@ -113,11 +112,22 @@ open class BaseMultiListAdapter(
         selectedDataList?.addAll(data)
     }
 
-    override fun appendToList(list: MutableList<BaseMixEntity>?) {
-        if (list == null || list.isEmpty()) {
+    override fun appendToList(data: MutableList<BaseMixEntity>?) {
+        if (data == null || data.isEmpty()) {
             return
         }
-        data.addAll(list)
+        this.data.addAll(data)
+    }
+
+    override fun appendAnyToList(data: MutableList<*>?) {
+        if (data == null || data.isEmpty()) {
+            return
+        }
+        for (d in data) {
+            if (d is BaseMixEntity) {
+                this.data.add(d)
+            }
+        }
     }
 
     open fun appendToList(list: MutableList<BaseMixEntity>?, position: Int) {

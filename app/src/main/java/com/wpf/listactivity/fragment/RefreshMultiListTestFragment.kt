@@ -5,7 +5,7 @@ import android.view.View
 import android.widget.Toast
 import com.base.listactivity.adapter.BaseMultiItemAdapter
 import com.base.listactivity.entity.BaseMixEntity
-import com.base.listactivity.fragment.BaseRefreshMultiListFragment
+import com.base.listactivity.fragment.BaseListFragment
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.wpf.listactivity.adapter.TestAdapterMulti1
 import com.wpf.listactivity.adapter.TestAdapterMulti2
@@ -15,14 +15,14 @@ import com.wpf.listactivity.entity.MultiEntity
  * Created by 王朋飞 on 2021/6/21.
  *
  */
-class RefreshMultiListTestFragment: BaseRefreshMultiListFragment() {
+class RefreshMultiListTestFragment: BaseListFragment<BaseMixEntity>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         onRefresh()
     }
 
-    override fun preInitAdapter(): Array<BaseMultiItemAdapter<out BaseMixEntity>> {
+    override fun preInitMultiAdapter(): Array<out BaseMultiItemAdapter<out BaseMixEntity>> {
         return arrayOf(TestAdapterMulti1(), TestAdapterMulti2())
     }
 

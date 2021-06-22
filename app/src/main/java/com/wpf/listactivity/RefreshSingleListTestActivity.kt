@@ -3,12 +3,12 @@ package com.wpf.listactivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
-import com.base.listactivity.BaseRefreshSingleListActivity
+import com.base.listactivity.BaseListActivity
 import com.base.listactivity.adapter.BaseListAdapter
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.wpf.listactivity.adapter.TestAdapterSingle
 
-class RefreshSingleListTestActivity : BaseRefreshSingleListActivity<String>() {
+class RefreshSingleListTestActivity : BaseListActivity<String>() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

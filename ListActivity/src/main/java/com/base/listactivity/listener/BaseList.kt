@@ -3,6 +3,7 @@ package com.base.listactivity.listener
 import android.app.Activity.RESULT_OK
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import android.view.View
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -10,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.aspsine.swipetoloadlayout.OnLoadMoreListener
 import com.aspsine.swipetoloadlayout.OnRefreshListener
 import com.aspsine.swipetoloadlayout.SwipeToLoadLayout
+import com.base.listactivity.entity.BaseMixEntity
 import com.base.listactivity.widget.EmptyLayout
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.listener.OnItemChildClickListener
@@ -27,13 +29,12 @@ interface BaseList<T> : OnRefreshListener, OnLoadMoreListener,
     OnItemLongClickListener, OnItemChildLongClickListener {
 
     var mContext: Context?
-
     var mEmptyLayout: EmptyLayout?
     var mSwipeToLoadLayout: SwipeToLoadLayout?
 
     var mRecyclerView: RecyclerView?
     var mLayoutManager: RecyclerView.LayoutManager?
-    var mBaseAdapter: BaseAdapter<T>?
+    var mAdapter: BaseAdapter<*>?
 
     // 返回需刷新界面的requestCode
     var REFRESH_REQUEST_CODE: Int
@@ -52,7 +53,8 @@ interface BaseList<T> : OnRefreshListener, OnLoadMoreListener,
      */
     fun initViews(
         mRecyclerView: RecyclerView?,
-        mBaseAdapter: BaseAdapter<T>?,
+        mBaseAdapter: BaseAdapter<T>? = null,
+        mBaseMultiAdapter: BaseAdapter<BaseMixEntity>? = null,
         mSwipeToLoadLayout: SwipeToLoadLayout? = null,
         mEmptyLayout: EmptyLayout? = null,
         mLayoutManager: RecyclerView.LayoutManager? = null,
@@ -62,11 +64,15 @@ interface BaseList<T> : OnRefreshListener, OnLoadMoreListener,
         onItemLongClickListener: OnItemLongClickListener? = null,
         onItemChildLongClickListener: OnItemChildLongClickListener? = null
     ) {
-        REFRESH_REQUEST_CODE = 149
         this.mContext = mRecyclerView?.context
         this.mEmptyLayout = mEmptyLayout
         this.mRecyclerView = mRecyclerView
-        this.mBaseAdapter = mBaseAdapter
+        if (mBaseAdapter != null) {
+            this.mAdapter = mBaseAdapter
+        }
+        if (mBaseMultiAdapter != null) {
+            this.mAdapter = mBaseMultiAdapter
+        }
         this.mLayoutManager = mLayoutManager
         this.mSwipeToLoadLayout = mSwipeToLoadLayout
 
@@ -90,7 +96,7 @@ interface BaseList<T> : OnRefreshListener, OnLoadMoreListener,
     ) {
         if (isRefresh) {
             mSwipeToLoadLayout?.isRefreshing = false
-            mBaseAdapter?.clear()
+            mAdapter?.clear()
             if (data == null || data.size == 0) {
                 emptyMessage?.let {
                     mEmptyLayout?.emptyMessageStr = emptyMessage
@@ -106,9 +112,9 @@ interface BaseList<T> : OnRefreshListener, OnLoadMoreListener,
         }
         mSwipeToLoadLayout?.isLoadMoreEnabled = hasMore
         data?.let {
-            mBaseAdapter?.appendToList(data)
+            mAdapter?.appendAnyToList(data)
         }
-        mBaseAdapter?.notifyDataSetChanged()
+        mAdapter?.notifyDataSetChanged()
     }
 
     /**
@@ -120,7 +126,7 @@ interface BaseList<T> : OnRefreshListener, OnLoadMoreListener,
         } else {
             mSwipeToLoadLayout?.isLoadingMore = false
         }
-        if (mBaseAdapter?.isEmpty() == true) {
+        if (mAdapter?.isEmpty() == true) {
             mEmptyLayout?.emptyStatus = EmptyLayout.STATUS_NO_NET
             mEmptyLayout?.setRetryListener(retryListener)
         } else {
@@ -137,7 +143,7 @@ interface BaseList<T> : OnRefreshListener, OnLoadMoreListener,
         } else {
             mSwipeToLoadLayout?.isLoadingMore = false
         }
-        if (mBaseAdapter?.isEmpty() == true) {
+        if (mAdapter?.isEmpty() == true) {
             mEmptyLayout?.emptyStatus = EmptyLayout.STATUS_SERVER_ERROR
             mEmptyLayout?.setRetryListener(null)
         } else {
@@ -149,7 +155,7 @@ interface BaseList<T> : OnRefreshListener, OnLoadMoreListener,
      * 刷新界面
      */
     fun refreshView() {
-        if (mBaseAdapter?.isEmpty() == true) {
+        if (mAdapter?.isEmpty() == true) {
             mEmptyLayout?.emptyStatus = EmptyLayout.STATUS_LOADING
             onRefresh()
         } else {
@@ -172,11 +178,11 @@ interface BaseList<T> : OnRefreshListener, OnLoadMoreListener,
         onItemChildLongClickListener: OnItemChildLongClickListener? = null,
     ) {
         setRecyclerViewLayoutManager(spanCount)
-        mBaseAdapter?.setOnItemChildClickListener(onItemChildClickListener ?: this)
-        mBaseAdapter?.setOnItemChildLongClickListener(onItemChildLongClickListener ?: this)
-        mBaseAdapter?.setOnItemClickListener(onItemClickListener ?: this)
-        mBaseAdapter?.setOnItemLongClickListener(onItemLongClickListener ?: this)
-        this.mRecyclerView?.adapter = this.mBaseAdapter?.getAdapter()
+        mAdapter?.setOnItemChildClickListener(onItemChildClickListener ?: this)
+        mAdapter?.setOnItemChildLongClickListener(onItemChildLongClickListener ?: this)
+        mAdapter?.setOnItemClickListener(onItemClickListener ?: this)
+        mAdapter?.setOnItemLongClickListener(onItemLongClickListener ?: this)
+        this.mRecyclerView?.adapter = this.mAdapter?.getAdapter()
         this.mSwipeToLoadLayout?.setOnRefreshListener(this)
         this.mSwipeToLoadLayout?.setOnLoadMoreListener(this)
 

@@ -3,7 +3,7 @@ package com.wpf.listactivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
-import com.base.listactivity.BaseRefreshMultiListActivity
+import com.base.listactivity.BaseListActivity
 import com.base.listactivity.adapter.BaseMultiItemAdapter
 import com.base.listactivity.entity.BaseMixEntity
 import com.chad.library.adapter.base.BaseQuickAdapter
@@ -11,14 +11,14 @@ import com.wpf.listactivity.adapter.TestAdapterMulti1
 import com.wpf.listactivity.adapter.TestAdapterMulti2
 import com.wpf.listactivity.entity.MultiEntity
 
-class RefreshMultiListTestActivity : BaseRefreshMultiListActivity() {
+class RefreshMultiListTestActivity : BaseListActivity<BaseMixEntity>() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         onRefresh()
     }
 
-    override fun preInitAdapter(): Array<BaseMultiItemAdapter<out BaseMixEntity>> {
+    override fun preInitMultiAdapter(): Array<out BaseMultiItemAdapter<out BaseMixEntity>> {
         return arrayOf(TestAdapterMulti1(), TestAdapterMulti2())
     }
 

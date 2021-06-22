@@ -25,6 +25,8 @@ interface BaseAdapter<T> : BaseListenerImp {
      */
     fun appendToList(data: MutableList<T>?)
 
+    fun appendAnyToList(data: MutableList<*>?)
+
     fun notifyDataSetChanged()
 
     fun isEmpty(): Boolean

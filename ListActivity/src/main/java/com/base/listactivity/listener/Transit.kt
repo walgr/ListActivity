@@ -3,6 +3,7 @@ package com.base.listactivity.listener
 import android.content.Intent
 import com.aspsine.swipetoloadlayout.OnLoadMoreListener
 import com.aspsine.swipetoloadlayout.OnRefreshListener
+import com.base.listactivity.entity.BaseMixEntity
 
 /**
  * Created by 王朋飞 on 2021/6/21.

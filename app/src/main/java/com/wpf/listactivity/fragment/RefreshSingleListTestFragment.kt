@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import com.base.listactivity.adapter.BaseListAdapter
-import com.base.listactivity.fragment.BaseRefreshSingleListFragment
+import com.base.listactivity.fragment.BaseListFragment
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.wpf.listactivity.adapter.TestAdapterSingle
 
@@ -12,7 +12,7 @@ import com.wpf.listactivity.adapter.TestAdapterSingle
  * Created by 王朋飞 on 2021/6/21.
  *
  */
-class RefreshSingleListTestFragment: BaseRefreshSingleListFragment<String>() {
+class RefreshSingleListTestFragment: BaseListFragment<String>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
