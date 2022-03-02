@@ -11,7 +11,7 @@ import com.wpf.listactivity.adapter.TestAdapterMulti1
 import com.wpf.listactivity.adapter.TestAdapterMulti2
 import com.wpf.listactivity.entity.MultiEntity
 
-class NoRefreshMultiListTestActivity : BaseListActivity<BaseMixEntity>(
+class NoRefreshMultiListTestActivity : BaseListActivity<MultiEntity>(
     includeEmpty = false,
     includeHeader = false,
     includeLoadMore = false

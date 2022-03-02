@@ -11,14 +11,14 @@ import com.wpf.listactivity.adapter.TestAdapterMulti1
 import com.wpf.listactivity.adapter.TestAdapterMulti2
 import com.wpf.listactivity.entity.MultiEntity
 
-class RefreshMultiListTestActivity : BaseListActivity<BaseMixEntity>() {
+class RefreshMultiListTestActivity : BaseListActivity<MultiEntity>() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         onRefresh()
     }
 
-    override fun preInitMultiAdapter(): Array<out BaseMultiItemAdapter<out BaseMixEntity>> {
+    override fun preInitMultiAdapter(): Array<out BaseMultiItemAdapter<MultiEntity>> {
         return arrayOf(TestAdapterMulti1(), TestAdapterMulti2())
     }
 

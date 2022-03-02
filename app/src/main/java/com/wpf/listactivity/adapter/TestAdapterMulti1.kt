@@ -1,7 +1,6 @@
 package com.wpf.listactivity.adapter
 
 import android.widget.TextView
-import com.base.listactivity.adapter.BaseListAdapter
 import com.base.listactivity.adapter.BaseMultiItemAdapter
 import com.base.listactivity.entity.BaseMixEntity
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
