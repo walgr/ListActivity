@@ -17,9 +17,9 @@ class TestAdapterMulti1 : BaseMultiItemAdapter<MultiEntity>(1, R.layout.item_tes
         addChildClickViewIds(R.id.item)
     }
 
-    override fun convert(holder: BaseViewHolder, item: BaseMixEntity) {
+    override fun convert(holder: BaseViewHolder, item: MultiEntity) {
         holder.getView<TextView>(R.id.lable).text = "标签1"
-        holder.getView<TextView>(R.id.item).text = (item as MultiEntity).name
+        holder.getView<TextView>(R.id.item).text = item.name
     }
 
     override fun sendRefreshEvent() {

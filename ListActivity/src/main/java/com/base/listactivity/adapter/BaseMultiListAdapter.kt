@@ -44,7 +44,7 @@ open class BaseMultiListAdapter(
     }
 
     override fun convert(holder: BaseViewHolder, item: BaseMixEntity) {
-        layoutAdapterList.find { it.itemType == item.itemType }?.convert(holder, item)
+        (layoutAdapterList.find { it.itemType == item.itemType } as? BaseMultiItemAdapter<BaseMixEntity>)?.convert(holder, item)
     }
 
     //多选时用来获取选中的ID

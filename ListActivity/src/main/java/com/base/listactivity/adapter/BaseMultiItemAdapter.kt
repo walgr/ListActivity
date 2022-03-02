@@ -9,9 +9,9 @@ import com.chad.library.adapter.base.viewholder.BaseViewHolder
  *
  */
 abstract class BaseMultiItemAdapter<T : BaseMixEntity>(val itemType: Int, val layout: Int)
-    : BaseQuickAdapter<BaseMixEntity, BaseViewHolder>(layout) {
+    : BaseQuickAdapter<T, BaseViewHolder>(layout) {
 
-    public override fun convert(holder: BaseViewHolder, item: BaseMixEntity) {
+    public override fun convert(holder: BaseViewHolder, item: T) {
 
     }
 
